@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="title center">
+    Trololo Board
+  </div>
+  <div class="sub-title center">
+    There are {{TotalTask}} task on board
+  </div>
+  <div class="desc center">
+    type task text and executor name. Click on card to move to another list
+  </div>
+
+  <div class="new-task center">
+    <form [formGroup]="newTask">
+      <input type="text" formControlName="taskName" placeholder="New Task">
+      <input type="text" formControlName="taskAssign" placeholder="Who">
+      <button class="save-btn" (click)="addTask()">Add</button>
+
+    </form>
+  </div>
+
+  <div class="center">
+
+
+    <div class="example-container">
+      <div class="board-title">
+        <h2>Todo tasks</h2>
+        <span>{{Todo.length}}</span>
+      </div>
+ 
+      <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="Todo" [cdkDropListConnectedTo]="[doingList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <ng-container *ngIf="Todo.length">
+
+          <div class="example-box" *ngFor="let item of Todo" cdkDrag>{{item['taskName']}}</div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="example-container">
+
+      <div class="board-title">
+        <h2>Doing tasks</h2>
+        <span>{{Doing.length}}</span>
+      </div>
+
+      <div cdkDropList #doingList="cdkDropList" [cdkDropListData]="Doing" [cdkDropListConnectedTo]="[doneList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of Doing" cdkDrag>{{item['taskName']}}</div>
+      </div>
+    </div>
+
+    <div class="example-container">
+      <div class="board-title">
+        <h2>Done tasks</h2>
+        <span>{{Done.length}}</span>
+      </div>
+
+      <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="Done" [cdkDropListConnectedTo]="[todoList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of Done" cdkDrag>{{item['taskName']}}</div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
